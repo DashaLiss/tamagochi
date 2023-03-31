@@ -1,6 +1,6 @@
 #include "Header.h"
 
-Pet null = { 50,50,50,50 };
+Pet null = { 70,50,50,50 };
 Pet os;
 
 string savePet = "save.txt";
@@ -8,7 +8,7 @@ string sprate = "sprate.txt";
 string name = "Котёнок";
 
 void print(Pet a) {
-	cout << "голод - " << a.hunger << "; усталость -" << a.sleep << "; досуг  - " << a.play << "; гигиена - " << a.toilettes;
+	cout << "голод - " << a.hungry << "; усталость -" << a.sleep << "; досуг  - " << a.play << "; гигиена - " << a.toilettes;
 }
 void saveNull()
 {
@@ -20,18 +20,18 @@ void saveNull()
 	}
 	fout.close();
 }
-void savePrint(){
+Pet save(){
 	ifstream fin;
 	fin.open(savePet);
 	if (!fin.is_open()) cout << "Ошибка открытия файла" << endl;
 	else {
-		while (fin.read((char*)&os, sizeof(Pet))) {
-			print(os);
-		}
+		fin.read((char*)&os, sizeof(Pet));
 	}
 	fin.close();
+	return os;
 }
-void printNormPet() {
+
+void printNormPet(Pet a) {
 	ifstream fin;
 	fin.open(sprate);
 	
@@ -46,13 +46,13 @@ void printNormPet() {
 		cout << endl;
 		cout << name << " чувствует себя никак...";
 		cout << "\n\n-----------------------------------\n";
-		savePrint();
+		print(a);
 		cout << "\n-----------------------------------\n";
 	}
 	fin.close();
 }
 
-void printHungryPet()
+void printHungryPet(Pet a)
 {
 	ifstream fin;
 	fin.open(sprate);
@@ -69,13 +69,13 @@ void printHungryPet()
 		cout << endl;
 		cout << name << " очень голодный , но в его коробке с едой ничего нет !\nОсторожно он уже смотрит голодными глазами на вас";
 		cout << "\n\n-----------------------------------\n";
-		savePrint();
+		print(a);
 		cout << "\n-----------------------------------\n";
 	}
 	fin.close();
 }
 
-void printSatisfiedPet()
+void printSatisfiedPet(Pet a)
 {
 	ifstream fin;
 	fin.open(sprate);
@@ -92,7 +92,7 @@ void printSatisfiedPet()
 		cout << endl;
 		cout << name << " объелся и привратился в кото-шарик, осторожно он может улететь ";
 		cout << "\n\n-----------------------------------\n";
-		savePrint();
+		print(a);
 		cout << "\n-----------------------------------\n";
 	}
 	fin.close();

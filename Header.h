@@ -7,7 +7,7 @@ using namespace std;
 
 
 struct Pet {
-	int hunger;
+	int hungry;
 	int sleep;
 	int play;
 	int toilettes;
@@ -17,11 +17,11 @@ struct Pet {
 void print(Pet a);
 void saveNull();
 
-void savePrint();
+Pet save();
 void printPet();
 
-void printNormPet();
-void printHungryPet();
-void printSatisfiedPet();
+void printNormPet(Pet a);
+void printHungryPet(Pet a);
+void printSatisfiedPet(Pet a);
 
 int action();
