@@ -1,6 +1,6 @@
 #include "Header.h"
 
-Pet null = { 70,50,50,50 };
+Pet null = { 81,50,50,50 };
 Pet os;
 
 string savePet = "save.txt";
@@ -8,7 +8,7 @@ string sprate = "sprate.txt";
 string name = "Котёнок";
 
 void print(Pet a) {
-	cout << "голод - " << a.hungry << "; усталость -" << a.sleep << "; досуг  - " << a.play << "; гигиена - " << a.toilettes;
+	cout << "сытость - " << a.hungry << "; бодрость -" << a.sleep << "; досуг  - " << a.play << "; гигиена - " << a.toilettes;
 }
 void saveNull()
 {
@@ -20,7 +20,7 @@ void saveNull()
 	}
 	fout.close();
 }
-Pet save(){
+Pet ReadSave(){
 	ifstream fin;
 	fin.open(savePet);
 	if (!fin.is_open()) cout << "Ошибка открытия файла" << endl;
@@ -98,10 +98,32 @@ void printSatisfiedPet(Pet a)
 	fin.close();
 }
 
+void printDirtyPet(Pet a)
+{
+	ifstream fin;
+	fin.open(sprate);
+
+	if (!fin.is_open()) cout << "Ошибка открытия файла" << endl;
+	else {
+		cout << "-----------------------------------\n\n";
+		ifstream in("sprate.txt");
+		string s;
+		for (int c = 1; getline(in, s) && c <= 36; ++c) {
+			if (c >= 25)
+				cout << s << std::endl;
+		}
+		cout << endl;
+		cout << name << " Фу.... "<< name <<" не хочет жить в такой грязной комнате ";
+		cout << "\n\n-----------------------------------\n";
+		print(a);
+		cout << "\n-----------------------------------\n";
+	}
+	fin.close();
+}
 
 int action()
 {
-	cout << "\n* Если вы хотите накормить питомца введите - 1\n* Если вы хотите уложить спать питомца введите - 2\n* Если вы хотите поиграть с питомцем введите - 3\n* Если вы хотите наверсти уборку введите - 4\n* Если вы хотите выйти введите(осторожно выши данные не сохраняться при ином закрытие программы) - 5\n";
+	cout << "\n* Если вы хотите накормить питомца ,введите - 1\n* Если вы хотите уложить спать питомца, введите - 2\n* Если вы хотите поиграть с питомцем, введите - 3\n* Если вы хотите наверсти уборку ,введите - 4\n* Если вы хотите выйти, введите(осторожно выши данные не сохраняться при ином закрытие программы) - 5\n";
 	int enter;
 	cout << "\n Ваш выбор - ";
 	cin >> enter;

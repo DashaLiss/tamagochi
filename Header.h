@@ -1,8 +1,8 @@
 #pragma once
-//////////////
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <ctime> 
 using namespace std;
 
 
@@ -17,11 +17,13 @@ struct Pet {
 void print(Pet a);
 void saveNull();
 
-Pet save();
+Pet ReadSave();
 void printPet();
 
 void printNormPet(Pet a);
 void printHungryPet(Pet a);
 void printSatisfiedPet(Pet a);
+void printDirtyPet(Pet a);
+void printSleepPet(Pet a);
 
 int action();
