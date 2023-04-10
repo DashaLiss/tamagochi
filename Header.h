@@ -19,13 +19,17 @@ void saveNull();
 void saveSleepOff();
 
 Pet ReadSave();
+string ReadName();
 bool ReadSaveSleep();
 void printPet();
+int ReadSaveTime();
 
-void printNormPet(Pet a);
-void printHungryPet(Pet a);
-void printSatisfiedPet(Pet a);
-void printDirtyPet(Pet a);
-void printSleepPet(Pet a);
+void printNormPet(Pet a, string name);
+void printHungryPet(Pet a, string name);
+void printSatisfiedPet(Pet a, string name);
+void printDirtyPet(Pet a, string name);
+void printSleepPet(Pet a, string name);
+void printHappyPet(Pet a, string name);
+void printDeadPet(Pet a, string name);
 
 int action();

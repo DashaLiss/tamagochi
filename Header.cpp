@@ -2,13 +2,18 @@
 
 Pet null = { 70,70,70,70 };
 Pet os;
+
+int tiime;
+
 bool sleep;
 bool sleepOff = false;
 
 string savePet = "save.txt";
 string sprate = "sprate.txt";
 string saveSleep = "sleep.txt";
-string name = "Котёнок";
+string Savetime = "time.txt";
+string saveName = "name.txt";
+string name;
 
 void print(Pet a) {
 	cout << "сытость - " << a.hungry << "; бодрость -" << a.sleep << "; досуг  - " << a.play << "; гигиена - " << a.toilettes;
@@ -32,6 +37,7 @@ void saveSleepOff() {
 	}
 	fout.close();
 }
+
 Pet ReadSave(){
 	ifstream fin;
 	fin.open(savePet);
@@ -41,6 +47,18 @@ Pet ReadSave(){
 	}
 	fin.close();
 	return os;
+}
+
+string ReadName()
+{
+	ifstream fin;
+	fin.open(Savetime);
+	if (!fin.is_open()) cout << "Ошибка открытия файла" << endl;
+	else {
+		fin.read((char*)&name, sizeof(string));
+	}
+	fin.close();
+	return name;
 }
 
 bool ReadSaveSleep()
@@ -55,7 +73,19 @@ bool ReadSaveSleep()
 	return sleep;
 }
 
-void printNormPet(Pet a) {
+int ReadSaveTime()
+{
+	ifstream fin;
+	fin.open(Savetime);
+	if (!fin.is_open()) cout << "Ошибка открытия файла" << endl;
+	else {
+		fin.read((char*)&tiime, sizeof(int));
+	}
+	fin.close();
+	return tiime;
+}
+
+void printNormPet(Pet a, string name) {
 	ifstream fin;
 	fin.open(sprate);
 	
@@ -76,7 +106,7 @@ void printNormPet(Pet a) {
 	fin.close();
 }
 
-void printHungryPet(Pet a)
+void printHungryPet(Pet a, string name)
 {
 	ifstream fin;
 	fin.open(sprate);
@@ -99,7 +129,7 @@ void printHungryPet(Pet a)
 	fin.close();
 }
 
-void printSatisfiedPet(Pet a)
+void printSatisfiedPet(Pet a, string name)
 {
 	ifstream fin;
 	fin.open(sprate);
@@ -122,7 +152,7 @@ void printSatisfiedPet(Pet a)
 	fin.close();
 }
 
-void printDirtyPet(Pet a)
+void printDirtyPet(Pet a, string name)
 {
 	ifstream fin;
 	fin.open(sprate);
@@ -136,8 +166,18 @@ void printDirtyPet(Pet a)
 			if (c >= 25)
 				cout << s << std::endl;
 		}
-		cout << endl;
-		cout << name << " Фу.... "<< name <<" не хочет жить в такой грязной комнате ";
+		if (a.toilettes < 50) {
+			cout << endl;
+			cout << name << " Фу.... " << name << " не хочет жить в такой грязной комнате ";
+		}
+		if (a.sleep < 50) {
+			cout << endl;
+			cout << name << " весь на нервах, он очень хочет спать ";
+		}
+		if (a.sleep < 50) {
+			cout << endl;
+			cout << name << " очень напряжённый, он хочет поиграть ! ";
+		}
 		cout << "\n\n-----------------------------------\n";
 		print(a);
 		cout << "\n-----------------------------------\n";
@@ -145,7 +185,7 @@ void printDirtyPet(Pet a)
 	fin.close();
 }
 
-void printSleepPet(Pet a)
+void printSleepPet(Pet a, string name)
 {
 	ifstream fin;
 	fin.open(sprate);
@@ -155,15 +195,57 @@ void printSleepPet(Pet a)
 		cout << "-----------------------------------\n\n";
 		ifstream in("sprate.txt");
 		string s;
-		for (int c = 1; getline(in, s) && c <= 43; ++c) {
+		for (int c = 1; getline(in, s) && c <= 40; ++c) {
 			if (c >= 37)
 				cout << s << std::endl;
 		}
 		cout << endl;
 		cout << name << " видит радужные сны ";
 		cout << "\n\n-----------------------------------\n";
+	}
+	fin.close();
+}
+
+void printHappyPet(Pet a, string name)
+{
+	ifstream fin;
+	fin.open(sprate);
+
+	if (!fin.is_open()) cout << "Ошибка открытия файла" << endl;
+	else {
+		cout << "-----------------------------------\n\n";
+		ifstream in("sprate.txt");
+		string s;
+		for (int c = 1; getline(in, s) && c <= 52; ++c) {
+			if (c >= 41)
+				cout << s << std::endl;
+		}
+		cout << endl;
+		cout << name << " очень счастливый ";
+		cout << "\n\n-----------------------------------\n";
 		print(a);
 		cout << "\n-----------------------------------\n";
+	}
+	fin.close();
+}
+
+void printDeadPet(Pet a, string name)
+{
+	ifstream fin;
+	fin.open(sprate);
+
+	if (!fin.is_open()) cout << "Ошибка открытия файла" << endl;
+	else {
+		cout << "-----------------------------------\n\n";
+		ifstream in("sprate.txt");
+		string s;
+		for (int c = 1; getline(in, s) && c <= 67; ++c) {
+			if (c >= 53)
+				cout << s << std::endl;
+		}
+		cout << endl;
+		cout << name << " уже не в этом мире.Ты так давно его не навещал.... ";
+		cout << "\n\n-----------------------------------\n";
 	}
 	fin.close();
 }
