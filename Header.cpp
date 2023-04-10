@@ -1,10 +1,13 @@
 #include "Header.h"
 
-Pet null = { 81,50,50,50 };
+Pet null = { 70,70,70,70 };
 Pet os;
+bool sleep;
+bool sleepOff = false;
 
 string savePet = "save.txt";
 string sprate = "sprate.txt";
+string saveSleep = "sleep.txt";
 string name = "Котёнок";
 
 void print(Pet a) {
@@ -20,6 +23,15 @@ void saveNull()
 	}
 	fout.close();
 }
+void saveSleepOff() {
+	ofstream fout;
+	fout.open(saveSleep, ofstream::trunc);
+	if (!fout.is_open()) cout << "Ошибка открытия файла" << endl;
+	else {
+		fout.write((char*)&sleepOff, sizeof(bool));
+	}
+	fout.close();
+}
 Pet ReadSave(){
 	ifstream fin;
 	fin.open(savePet);
@@ -29,6 +41,18 @@ Pet ReadSave(){
 	}
 	fin.close();
 	return os;
+}
+
+bool ReadSaveSleep()
+{
+	ifstream fin;
+	fin.open(saveSleep);
+	if (!fin.is_open()) cout << "Ошибка открытия файла" << endl;
+	else {
+		fin.read((char*)&sleep, sizeof(bool));
+	}
+	fin.close();
+	return sleep;
 }
 
 void printNormPet(Pet a) {
@@ -114,6 +138,29 @@ void printDirtyPet(Pet a)
 		}
 		cout << endl;
 		cout << name << " Фу.... "<< name <<" не хочет жить в такой грязной комнате ";
+		cout << "\n\n-----------------------------------\n";
+		print(a);
+		cout << "\n-----------------------------------\n";
+	}
+	fin.close();
+}
+
+void printSleepPet(Pet a)
+{
+	ifstream fin;
+	fin.open(sprate);
+
+	if (!fin.is_open()) cout << "Ошибка открытия файла" << endl;
+	else {
+		cout << "-----------------------------------\n\n";
+		ifstream in("sprate.txt");
+		string s;
+		for (int c = 1; getline(in, s) && c <= 43; ++c) {
+			if (c >= 37)
+				cout << s << std::endl;
+		}
+		cout << endl;
+		cout << name << " видит радужные сны ";
 		cout << "\n\n-----------------------------------\n";
 		print(a);
 		cout << "\n-----------------------------------\n";

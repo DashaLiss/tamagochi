@@ -16,8 +16,10 @@ struct Pet {
 
 void print(Pet a);
 void saveNull();
+void saveSleepOff();
 
 Pet ReadSave();
+bool ReadSaveSleep();
 void printPet();
 
 void printNormPet(Pet a);
