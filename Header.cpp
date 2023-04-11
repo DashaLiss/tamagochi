@@ -2,6 +2,7 @@
 
 Pet null = { 70,70,70,70 };
 Pet os;
+Inventory inventory;
 
 time_t tiime;
 
@@ -9,6 +10,7 @@ bool sleep;
 bool sleepOff = false;
 
 string savePet = "save.txt";
+string saveInventory = "Inventory.txt";
 string sprate = "sprate.txt";
 string saveSleep = "sleep.txt";
 string Savetime = "time.txt";
@@ -59,6 +61,17 @@ string ReadName()
 	}
 	fin.close();
 	return name;
+}
+
+Inventory ReadInventory() {
+	ifstream fin;
+	fin.open(saveInventory);
+	if (!fin.is_open()) cout << "Ошибка открытия файла" << endl;
+	else {
+		fin.read((char*)&inventory, sizeof(Inventory));
+	}
+	fin.close();
+	return inventory;
 }
 
 bool ReadSaveSleep()
@@ -252,7 +265,7 @@ void printDeadPet(Pet a, string name)
 
 int action()
 {
-	cout << "\n* Если вы хотите накормить питомца ,введите - 1\n* Если вы хотите уложить спать питомца, введите - 2\n* Если вы хотите поиграть с питомцем, введите - 3\n* Если вы хотите наверсти уборку ,введите - 4\n* Если вы хотите выйти, введите(осторожно выши данные не сохраняться при ином закрытие программы) - 5\n";
+	cout << "\n* Если вы хотите накормить питомца ,введите - 1\n* Если вы хотите уложить спать питомца, введите - 2\n* Если вы хотите поиграть с питомцем, введите - 3\n* Если вы хотите наверсти уборку ,введите - 4\n* Если вы хотите открыть инвентарь, введите - 5\n* Если вы хотите открыть магазин, введите - 6\n* Если вы хотите выйти, введите(осторожно выши данные не сохраняться при ином закрытие программы) - 7\n";
 	int enter;
 	cout << "\n Ваш выбор - ";
 	cin >> enter;

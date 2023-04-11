@@ -14,6 +14,11 @@ struct Pet {
 	int toilettes;
 };
 
+struct Inventory {
+	int eat;
+	int money;
+};
+
 
 void print(Pet a);
 void saveNull();
@@ -21,6 +26,7 @@ void saveSleepOff();
 
 Pet ReadSave();
 string ReadName();
+Inventory ReadInventory();
 bool ReadSaveSleep();
 void printPet();
 time_t ReadSaveTime();

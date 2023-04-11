@@ -7,6 +7,7 @@ int main()
 	bool sleep;
 	
 	Pet pet;
+	Inventory inventory;
 
 	int choose;
 	int igra1;
@@ -18,6 +19,7 @@ int main()
 
 
 	string name;
+	string close;
 
 	setlocale(LC_ALL, "ru");
 	SetConsoleCP(1251);
@@ -27,6 +29,7 @@ int main()
 	cout << "Åסכט Âû ץמעטעו סמחהאעü םמגמדמ ןטעמלצא - גגוהטעו '1'\nÅסכט Âû ץמעטעו ןנמהמכזטעü - גגוהטעו '2'\n";
 	cin >> choose;
 	if (choose == 1) {
+		inventory = { 5, 10 };
 		saveNull();
 		pet = ReadSave();
 		saveSleepOff();
@@ -43,7 +46,7 @@ int main()
 		fout.close();
 	}
 	else if (choose == 2) {
-
+		inventory = ReadInventory();
 		TimeStart = ReadSaveTime();
 		pet = ReadSave();
 		sleep = ReadSaveSleep();
@@ -130,8 +133,17 @@ int main()
 				pet.toilettes += 5;
 				if (pet.toilettes > 100) pet.hungry = 100;
 			}
-		
-			else if (choose == 5)
+			
+			else if (choose == 5) {
+				system("cls");
+				cout << "ללללללללללללללללללללללללללללללללללל\n-----------------------------------\n\n והא - " << inventory.eat <<"\n למםועךט - "<< inventory.money << "\n---------------------------------- -\n גגוהטעו כ‏במי סטלגמכ קעמבû גûיעט - " ;
+				cin >> close;
+			}
+			else if (choose == 6) {
+				system("cls");
+				cout << "ללללללללללללללללללללללללללללללללללל\n-----------------------------------\n\n והא - 5 למםועמך\n---------------------------------- -\n ×עמבû ךףןטעü והף  גגוהטעו -   - '1'\n ×עמבû גûיעט גגוהטעו - '2'";
+			}
+			else if (choose == 7)
 				end = true;
 		}
 		while (sleep && !end) {
@@ -177,4 +189,10 @@ int main()
 	}
 	fout.close();
 
+	fout.open("Inventory.txt", ofstream::trunc);
+	if (!fout.is_open()) cout << "Îרטבךא מעךנûעטÿ פאיכא" << endl;
+	else {
+		fout.write((char*)&inventory, sizeof(Inventory));
+	}
+	fout.close();
 }
