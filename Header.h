@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include <ctime> 
+#include <Windows.h>
 using namespace std;
 
 
@@ -22,7 +23,7 @@ Pet ReadSave();
 string ReadName();
 bool ReadSaveSleep();
 void printPet();
-int ReadSaveTime();
+time_t ReadSaveTime();
 
 void printNormPet(Pet a, string name);
 void printHungryPet(Pet a, string name);

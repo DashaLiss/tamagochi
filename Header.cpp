@@ -3,7 +3,7 @@
 Pet null = { 70,70,70,70 };
 Pet os;
 
-int tiime;
+time_t tiime;
 
 bool sleep;
 bool sleepOff = false;
@@ -52,7 +52,7 @@ Pet ReadSave(){
 string ReadName()
 {
 	ifstream fin;
-	fin.open(Savetime);
+	fin.open(saveName);
 	if (!fin.is_open()) cout << "Ошибка открытия файла" << endl;
 	else {
 		fin.read((char*)&name, sizeof(string));
@@ -73,13 +73,13 @@ bool ReadSaveSleep()
 	return sleep;
 }
 
-int ReadSaveTime()
+time_t ReadSaveTime()
 {
 	ifstream fin;
 	fin.open(Savetime);
 	if (!fin.is_open()) cout << "Ошибка открытия файла" << endl;
 	else {
-		fin.read((char*)&tiime, sizeof(int));
+		fin.read((char*)&tiime, sizeof(time_t));
 	}
 	fin.close();
 	return tiime;

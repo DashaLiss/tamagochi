@@ -9,15 +9,19 @@ int main()
 	Pet pet;
 
 	int choose;
-	int TimeEnd = clock();
-	int TimeStart;
 	int igra1;
 	int igra2;
 	int igra3;
+	
+	time_t TimeEnd = time(NULL);
+	time_t TimeStart;
+
 
 	string name;
 
 	setlocale(LC_ALL, "ru");
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
 
 
 	cout << "Если Вы хотите создать нового питомца - введите '1'\nЕсли Вы хотите продолжить - введите '2'\n";
@@ -27,7 +31,7 @@ int main()
 		pet = ReadSave();
 		saveSleepOff();
 		sleep = ReadSaveSleep();
-		TimeStart = clock();
+		TimeStart = time(NULL);
 		cout << "Как вы назовёте питомца ? - ";
 		cin >> name;
 		ofstream fout;
@@ -44,14 +48,18 @@ int main()
 		pet = ReadSave();
 		sleep = ReadSaveSleep();
 		name = ReadName();
-		pet.hungry -= ((TimeStart - TimeEnd) / CLOCKS_PER_SEC) / 10;
-		pet.toilettes -= ((TimeStart - TimeEnd) / CLOCKS_PER_SEC) / 10;
-		pet.play -= ((TimeStart - TimeEnd) / CLOCKS_PER_SEC) / 10;
-		if (!sleep) pet.sleep -= ((TimeStart - TimeEnd) / CLOCKS_PER_SEC) / 10;
+		if (!sleep) {
+			pet.hungry -= (TimeEnd - TimeStart) / 10;
+			pet.toilettes -= (TimeEnd - TimeStart) / 10;
+			pet.sleep -= (TimeEnd - TimeStart) / 10;
+			pet.play -= (TimeEnd - TimeStart) / 10;
+		}
 	}
 
 
 	while (!end ) {
+		if (choose != 3)
+			system("cls");
 		if (!sleep) {
 			if (pet.hungry <= 1 || pet.toilettes <= 1 || pet.play <= 1 || pet.sleep <= 1) {
 				printDeadPet(pet,name);
@@ -81,14 +89,14 @@ int main()
 
 			// разница времени 
 
-			TimeEnd = clock();
+			TimeEnd = time(NULL);
 
-			if ((TimeEnd - TimeStart) / CLOCKS_PER_SEC > 10) {
-				pet.hungry -= ((TimeEnd - TimeStart) / CLOCKS_PER_SEC) / 10;
-				pet.toilettes -= ((TimeEnd - TimeStart) / CLOCKS_PER_SEC) / 10;
-				pet.sleep -= ((TimeEnd - TimeStart) / CLOCKS_PER_SEC) / 10;
-				pet.play -= ((TimeEnd - TimeStart) / CLOCKS_PER_SEC) / 10;
-				TimeStart = clock();
+			if (TimeEnd - TimeStart > 10) {
+				pet.hungry -= (TimeEnd - TimeStart)/ 10;
+				pet.toilettes -= (TimeEnd - TimeStart) / 10;
+				pet.sleep -= (TimeEnd - TimeStart)/ 10;
+				pet.play -= (TimeEnd - TimeStart) / 10;
+				TimeStart = time(NULL);
 			}
 			// выборы 
 			if (choose == 1) {
@@ -98,10 +106,11 @@ int main()
 		
 			if (choose == 2) {
 				sleep = true;
-				TimeStart = clock();
+				TimeStart = time(NULL);
 
 			}
 			if (choose == 3) {
+				system("cls");
 				srand(time(NULL));
 				igra1 = (rand() + 100) % 1000;
 				igra2 = (rand() + 100) % 1000;
@@ -126,26 +135,22 @@ int main()
 				end = true;
 		}
 		while (sleep && !end) {
+			system("cls");
 			printSleepPet(pet, name);
 			cout << "Если вы хотите разбудить питомца нажмите '1'";
 			cout <<endl <<"Если вы хотите выйти нажмите '2'"<<endl;
 			cin >> choose;
 			if (choose == 1) {
 				sleep = false;
-				TimeEnd = clock();
-				pet.sleep += ((TimeStart - TimeEnd) / CLOCKS_PER_SEC) / 5;
+				TimeEnd = time(NULL);
+				pet.sleep += (TimeEnd - TimeStart) / 10;
 				if (pet.sleep > 100) pet.sleep = 100;
+				pet.hungry -= (TimeEnd - TimeStart) / 10;
+				pet.toilettes -= (TimeEnd - TimeStart) / 10;
+				pet.play -= (TimeEnd - TimeStart) / 10;
 			}
-			else if (choose == 2) {
+			else if (choose == 2) 
 				end = true;
-				ofstream fout;
-				fout.open("time.txt", ofstream::trunc);
-				if (!fout.is_open()) cout << "Ошибка открытия файла" << endl;
-				else {
-					fout.write((char*)&TimeStart, sizeof(int));
-				}
-				fout.close();
-			}
 		}
 	}
 
@@ -162,6 +167,13 @@ int main()
 	if (!fout.is_open()) cout << "Ошибка открытия файла" << endl;
 	else {
 		fout.write((char*)&sleep, sizeof(bool));
+	}
+	fout.close();
+
+	fout.open("time.txt", ofstream::trunc);
+	if (!fout.is_open()) cout << "Ошибка открытия файла" << endl;
+	else {
+		fout.write((char*)&TimeStart, sizeof(time_t));
 	}
 	fout.close();
 
