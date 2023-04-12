@@ -52,10 +52,10 @@ int main()
 		sleep = ReadSaveSleep();
 		name = ReadName();
 		if (!sleep) {
-			pet.hungry -= (TimeEnd - TimeStart) / 10;
-			pet.toilettes -= (TimeEnd - TimeStart) / 10;
-			pet.sleep -= (TimeEnd - TimeStart) / 10;
-			pet.play -= (TimeEnd - TimeStart) / 10;
+			pet.hungry -= (TimeEnd - TimeStart) / 20;
+			pet.toilettes -= (TimeEnd - TimeStart) / 20;
+			pet.sleep -= (TimeEnd - TimeStart) / 20;
+			pet.play -= (TimeEnd - TimeStart) / 20;
 		}
 	}
 
@@ -94,17 +94,24 @@ int main()
 
 			TimeEnd = time(NULL);
 
-			if (TimeEnd - TimeStart > 10) {
-				pet.hungry -= (TimeEnd - TimeStart)/ 10;
-				pet.toilettes -= (TimeEnd - TimeStart) / 10;
-				pet.sleep -= (TimeEnd - TimeStart)/ 10;
-				pet.play -= (TimeEnd - TimeStart) / 10;
+			if (TimeEnd - TimeStart > 20) {
+				pet.hungry -= (TimeEnd - TimeStart)/ 20;
+				pet.toilettes -= (TimeEnd - TimeStart) / 20;
+				pet.sleep -= (TimeEnd - TimeStart)/ 20;
+				pet.play -= (TimeEnd - TimeStart) / 20;
 				TimeStart = time(NULL);
 			}
 			// выборы 
 			if (choose == 1) {
-				pet.hungry += 5;
-				if (pet.hungry > 100) pet.hungry = 100;
+				if (inventory.eat > 0) {
+					inventory.eat--;
+					pet.hungry += 5;
+					if (pet.hungry > 100) pet.hungry = 100;
+				}
+				else {
+					cout << "У вас нет еды";
+					Sleep(3500);
+				}
 			}
 		
 			if (choose == 2) {
@@ -123,6 +130,19 @@ int main()
 				if (igra3 == igra1 + igra2) {
 					cout << "Ура, это правильный ответ! " << name << " обрадовался!\n";
 					pet.play += 5;
+					if (igra3 % 3 == 0) {
+						inventory.money += 3;
+						cout << "Вы заработали 3 монетки !!!\n";
+					}
+					else if (igra3 % 3 == 1) {
+						inventory.money += 4;
+						cout << "Вы заработали 4 монетки !!!\n";
+					}
+					else if (igra3 % 3 == 2) {
+						inventory.money += 5;
+						cout << "Вы заработали 5 монеток !!!\n";
+					}
+					Sleep(5000);
 				}
 				else {
 					cout << "О нет, это неправильный ответ! " << name << " растроился\n";
@@ -140,8 +160,21 @@ int main()
 				cin >> close;
 			}
 			else if (choose == 6) {
-				system("cls");
-				cout << "ммммммммммммммммммммммммммммммммммм\n-----------------------------------\n\n еда - 5 монеток\n---------------------------------- -\n Чтобы купить еду  введите -   - '1'\n Чтобы выйти введите - '2'";
+				while (choose != 2) {
+					system("cls");
+					if (close == "dasha") { cout << "*В вашем инвентаре +1 еда*\n"; }
+					else if (close == "dafsha") { cout << "У вас недостаточно денег((\n"; }
+					cout << "ммммммммммммммммммммммммммммммммммм\n-----------------------------------\n\n еда - 5 монеток\n---------------------------------- -\n Чтобы купить еду  введите - '1'\n Чтобы выйти введите - '2'";
+					cin >> choose;
+					if (choose == 1) {
+						if (inventory.money >= 5) {
+							close = "dasha";
+							inventory.eat++;
+							inventory.money -= 5;
+						}
+						else close = "dafsha";
+					}
+				}
 			}
 			else if (choose == 7)
 				end = true;
@@ -155,11 +188,11 @@ int main()
 			if (choose == 1) {
 				sleep = false;
 				TimeEnd = time(NULL);
-				pet.sleep += (TimeEnd - TimeStart) / 10;
+				pet.sleep += (TimeEnd - TimeStart) / 20;
 				if (pet.sleep > 100) pet.sleep = 100;
-				pet.hungry -= (TimeEnd - TimeStart) / 10;
-				pet.toilettes -= (TimeEnd - TimeStart) / 10;
-				pet.play -= (TimeEnd - TimeStart) / 10;
+				pet.hungry -= (TimeEnd - TimeStart) / 20;
+				pet.toilettes -= (TimeEnd - TimeStart) / 20;
+				pet.play -= (TimeEnd - TimeStart) / 20;
 			}
 			else if (choose == 2) 
 				end = true;

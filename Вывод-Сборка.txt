@@ -1,1 +1,20 @@
-﻿
+﻿Сборка начата…
+1>------ Сборка начата: проект: tamagochi1, Конфигурация: Debug x64 ------
+1>Source.cpp
+1>C:\Users\User\source\repos\tamagochi1\Source.cpp(55,40): warning C4244: -=: преобразование "time_t" в "int", возможна потеря данных
+1>C:\Users\User\source\repos\tamagochi1\Source.cpp(56,43): warning C4244: -=: преобразование "time_t" в "int", возможна потеря данных
+1>C:\Users\User\source\repos\tamagochi1\Source.cpp(57,39): warning C4244: -=: преобразование "time_t" в "int", возможна потеря данных
+1>C:\Users\User\source\repos\tamagochi1\Source.cpp(58,38): warning C4244: -=: преобразование "time_t" в "int", возможна потеря данных
+1>C:\Users\User\source\repos\tamagochi1\Source.cpp(98,40): warning C4244: -=: преобразование "time_t" в "int", возможна потеря данных
+1>C:\Users\User\source\repos\tamagochi1\Source.cpp(99,44): warning C4244: -=: преобразование "time_t" в "int", возможна потеря данных
+1>C:\Users\User\source\repos\tamagochi1\Source.cpp(100,39): warning C4244: -=: преобразование "time_t" в "int", возможна потеря данных
+1>C:\Users\User\source\repos\tamagochi1\Source.cpp(101,39): warning C4244: -=: преобразование "time_t" в "int", возможна потеря данных
+1>C:\Users\User\source\repos\tamagochi1\Source.cpp(124,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+1>C:\Users\User\source\repos\tamagochi1\Source.cpp(191,40): warning C4244: +=: преобразование "time_t" в "int", возможна потеря данных
+1>C:\Users\User\source\repos\tamagochi1\Source.cpp(193,41): warning C4244: -=: преобразование "time_t" в "int", возможна потеря данных
+1>C:\Users\User\source\repos\tamagochi1\Source.cpp(194,44): warning C4244: -=: преобразование "time_t" в "int", возможна потеря данных
+1>C:\Users\User\source\repos\tamagochi1\Source.cpp(195,39): warning C4244: -=: преобразование "time_t" в "int", возможна потеря данных
+1>tamagochi1.vcxproj -> C:\Users\User\Source\Repos\tamagochi1\x64\Debug\tamagochi1.exe
+1>Сборка проекта "tamagochi1.vcxproj" завершена.
+========== Сборка: успешно выполнено — 1 , со сбоем — 0, в актуальном состоянии — 0, пропущено — 0 ==========
+========== Сборка запущено в 5:17 PM, заняло 00,894 с ==========
